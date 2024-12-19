@@ -1,0 +1,44 @@
+CREATE TABLE SalaryDB (
+    EID VARCHAR2(20) PRIMARY KEY,
+    Name VARCHAR2(50),
+    Dept VARCHAR2(50),
+    DO DATE,
+    Salary NUMBER
+);
+INSERT INTO SalaryDB (EID, Name, Dept, DO, Salary)
+VALUES ('E001', 'Alice', 'HR', TO_DATE('2022-01-01', 'YYYY-MM-DD'), 50000);
+
+INSERT INTO SalaryDB (EID, Name, Dept, DO, Salary)
+VALUES ('E002', 'Bob', 'Development', TO_DATE('2021-06-15', 'YYYY-MM-DD'), 60000);
+
+INSERT INTO SalaryDB (EID, Name, Dept, DO, Salary)
+VALUES ('E003', 'Charlie', 'Marketing', TO_DATE('2023-03-10', 'YYYY-MM-DD'), 45000);
+
+INSERT INTO SalaryDB (EID, Name, Dept, DO, Salary)
+VALUES ('E004', 'David', 'Development', TO_DATE('2020-12-01', 'YYYY-MM-DD'), 70000);
+
+INSERT INTO SalaryDB (EID, Name, Dept, DO, Salary)
+VALUES ('E005', 'Eva', 'HR', TO_DATE('2019-11-30', 'YYYY-MM-DD'), 55000);
+
+SELECT * FROM SalaryDB;
+
+SELECT * FROM SalaryDB WHERE Salary > 50000;
+
+SELECT AVG(Salary) AS Average_Salary FROM SalaryDB;
+
+SELECT MAX(Salary) AS Highest_Salary FROM SalaryDB;
+
+SELECT SUM(Salary) AS Total_Salary FROM SalaryDB;
+
+SELECT Dept, AVG(Salary) AS Average_Salary
+FROM SalaryDB
+GROUP BY Dept;
+
+SELECT Dept, SUM(Salary) AS Total_Salary
+FROM SalaryDB
+GROUP BY Dept;
+
+SELECT Dept, COUNT(EID) AS Number_of_Employees
+FROM SalaryDB
+GROUP BY Dept;
+

@@ -1,0 +1,48 @@
+CREATE TABLE dept (
+    dno NUMBER PRIMARY KEY,
+    dname VARCHAR2(50),
+    dlocation VARCHAR2(100)
+);
+
+CREATE TABLE emp (
+    eno NUMBER PRIMARY KEY,
+    ename VARCHAR2(50),
+    ebdate DATE,
+    address VARCHAR2(200),
+    gender VARCHAR2(10),
+    salary NUMBER,
+    deptno NUMBER,
+    FOREIGN KEY (deptno) REFERENCES dept(dno)
+);
+
+CREATE TABLE project (
+    pno NUMBER PRIMARY KEY,
+    pname VARCHAR2(100),
+    dnum NUMBER,
+    FOREIGN KEY (dnum) REFERENCES dept(dno)
+);
+
+CREATE TABLE works_on (
+    eno NUMBER,
+    pno NUMBER,
+    hours NUMBER,
+    PRIMARY KEY (eno, pno),
+    FOREIGN KEY (eno) REFERENCES emp(eno),
+    FOREIGN KEY (pno) REFERENCES project(pno)
+);
+
+UPDATE emp
+SET salary = salary * 1.10
+WHERE deptno = (
+    SELECT dno
+    FROM dept
+    WHERE dname = 'Research'
+);
+
+SELECT eno, ename, salary, deptno
+FROM emp
+WHERE deptno = (
+    SELECT dno
+    FROM dept
+    WHERE dname = 'Research'
+);

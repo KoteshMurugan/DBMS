@@ -1,0 +1,63 @@
+-- Create the 'Student' table with constraints
+CREATE TABLE Student (
+    USN VARCHAR2(15) PRIMARY KEY,
+    Name VARCHAR2(50),
+    DOB DATE,
+    Branch VARCHAR2(50),
+    Mark1 NUMBER CHECK (Mark1 BETWEEN 0 AND 100),
+    Mark2 NUMBER CHECK (Mark2 BETWEEN 0 AND 100),
+    Mark3 NUMBER CHECK (Mark3 BETWEEN 0 AND 100),
+    Total NUMBER,
+    GPA NUMBER(3, 2) CHECK (GPA BETWEEN 0 AND 10)
+);
+
+
+
+-- Create the 'Student' table without constraints
+
+-- Create the 'Student' table without constraints
+CREATE TABLE Student (
+    USN VARCHAR2(15),
+    Name VARCHAR2(50),
+    DOB DATE,
+    Branch VARCHAR2(50),
+    Mark1 NUMBER,
+    Mark2 NUMBER,
+    Mark3 NUMBER,
+    Total NUMBER,
+    GPA NUMBER(3, 2)
+);
+
+
+-- Insert data into the 'Student' table
+INSERT INTO Student (USN, Name, DOB, Branch, Mark1, Mark2, Mark3, Total, GPA)
+VALUES ('CS101', 'Alice', TO_DATE('2000-06-15', 'YYYY-MM-DD'), 'Computer Science', 85, 90, 88, 263, 8.8);
+
+INSERT INTO Student (USN, Name, DOB, Branch, Mark1, Mark2, Mark3, Total, GPA)
+VALUES ('CS102', 'Bob', TO_DATE('2001-07-25', 'YYYY-MM-DD'), 'Computer Science', 78, 82, 80, 240, 7.5);
+
+INSERT INTO Student (USN, Name, DOB, Branch, Mark1, Mark2, Mark3, Total, GPA)
+VALUES ('ME201', 'Charlie', TO_DATE('1999-03-12', 'YYYY-MM-DD'), 'Mechanical Engineering', 70, 75, 72, 217, 6.8);
+
+INSERT INTO Student (USN, Name, DOB, Branch, Mark1, Mark2, Mark3, Total, GPA)
+VALUES ('EE301', 'David', TO_DATE('1998-12-10', 'YYYY-MM-DD'), 'Electrical Engineering', 88, 85, 90, 263, 9.0);
+
+
+UPDATE Student
+SET GPA = 8.0
+WHERE USN = 'CS102';
+
+DELETE FROM Student
+WHERE USN = 'ME201';
+
+COMMIT;
+
+ROLLBACK;
+
+
+
+
+SELECT Branch, MAX(GPA) AS Max_GPA
+FROM Student
+GROUP BY Branch;
+

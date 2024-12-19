@@ -1,0 +1,37 @@
+]CREATE USER mydb IDENTIFIED BY mypassword;
+GRANT CONNECT, RESOURCE TO mydb;
+CONNECT mydb/mypassword;
+
+CREATE TABLE employees (
+    emp_id NUMBER,
+    emp_name VARCHAR2(100),
+    emp_salary NUMBER
+);
+
+CREATE TABLE departments (
+    dept_id NUMBER PRIMARY KEY,
+    dept_name VARCHAR2(50),
+    dept_location VARCHAR2(100)
+);
+
+INSERT INTO employees VALUES (1, 'John Doe', 50000);
+INSERT INTO employees VALUES (2, 'Jane Smith', 60000);
+UPDATE employees SET emp_salary = 55000 WHERE emp_id = 1;
+DELETE FROM employees WHERE emp_id = 2;
+
+COMMIT;
+ROLLBACK;
+
+ALTER TABLE employees ADD (emp_email VARCHAR2(100));
+ALTER TABLE employees MODIFY (emp_salary NUMBER(10, 2));
+ALTER TABLE employees DROP COLUMN emp_email;
+
+DROP TABLE departments;
+TRUNCATE TABLE employees;
+RENAME employees TO staff;
+
+BACKUP DATABASE mydb TO 'mydb_backup.bkp';
+RESTORE DATABASE mydb FROM 'mydb_backup.bkp';
+
+SELECT * FROM employees;
+SELECT * FROM departments;

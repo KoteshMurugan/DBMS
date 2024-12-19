@@ -1,0 +1,46 @@
+CREATE TABLE Branch (
+    BranchID NUMBER PRIMARY KEY,
+    BranchName VARCHAR2(100),
+    HOD VARCHAR2(50)
+);
+
+CREATE TABLE Student (
+    USN VARCHAR2(15) PRIMARY KEY,
+    Name VARCHAR2(50),
+    Address VARCHAR2(200),
+    BranchID NUMBER,
+    Sem NUMBER,
+    date_of_birth DATE,
+    FOREIGN KEY (BranchID) REFERENCES Branch(BranchID)
+);
+
+INSERT INTO Branch (BranchID, BranchName, HOD) 
+VALUES (1, 'Computer Science', 'Dr. Smith');
+
+INSERT INTO Branch (BranchID, BranchName, HOD) 
+VALUES (2, 'Mechanical Engineering', 'Dr. Johnson');
+
+INSERT INTO Branch (BranchID, BranchName, HOD) 
+VALUES (3, 'Electrical Engineering', 'Dr. Lee');
+
+INSERT INTO Student (USN, Name, Address, BranchID, Sem, date_of_birth) 
+VALUES ('CS101', 'Alice', '123 Main St, City', 1, 5, TO_DATE('1999-06-15', 'YYYY-MM-DD'));
+
+INSERT INTO Student (USN, Name, Address, BranchID, Sem, date_of_birth) 
+VALUES ('CS102', 'Bob', '456 Oak St, Town', 1, 6, TO_DATE('2000-07-25', 'YYYY-MM-DD'));
+
+INSERT INTO Student (USN, Name, Address, BranchID, Sem, date_of_birth) 
+VALUES ('ME201', 'Charlie', '789 Pine St, Village', 2, 4, TO_DATE('1998-03-12', 'YYYY-MM-DD'));
+
+INSERT INTO Student (USN, Name, Address, BranchID, Sem, date_of_birth) 
+VALUES ('EE301', 'David', '101 Maple St, City', 3, 7, TO_DATE('1997-12-10', 'YYYY-MM-DD'));
+
+INSERT INTO Student (USN, Name, Address, BranchID, Sem, date_of_birth) 
+VALUES ('ME202', 'Eva', '202 Birch St, Suburb', 2, 5, TO_DATE('1999-09-20', 'YYYY-MM-DD'));
+
+
+
+SELECT USN, Name, date_of_birth
+FROM Student
+WHERE EXTRACT(YEAR FROM date_of_birth) = 1999;
+

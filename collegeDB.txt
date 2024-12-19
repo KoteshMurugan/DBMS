@@ -1,0 +1,59 @@
+CREATE USER CollegeDB IDENTIFIED BY password;
+GRANT CONNECT, RESOURCE TO CollegeDB;
+ALTER USER CollegeDB QUOTA UNLIMITED ON USERS;
+CONNECT CollegeDB/password;
+
+CREATE TABLE Department (
+    Dept_ID NUMBER PRIMARY KEY,
+    Dept_Name VARCHAR2(50)
+);
+
+CREATE TABLE Student (
+    Student_ID NUMBER PRIMARY KEY,
+    Name VARCHAR2(50),
+    Age NUMBER,
+    Gender CHAR(1),
+    Dept_ID NUMBER,
+    CONSTRAINT FK_Dept FOREIGN KEY (Dept_ID) REFERENCES Department(Dept_ID)
+);
+
+CREATE TABLE Course (
+    Course_ID NUMBER PRIMARY KEY,
+    Course_Name VARCHAR2(100),
+    Dept_ID NUMBER,
+    CONSTRAINT FK_CourseDept FOREIGN KEY (Dept_ID) REFERENCES Department(Dept_ID)
+);
+
+CREATE TABLE Enrollment (
+    Enrollment_ID NUMBER PRIMARY KEY,
+    Student_ID NUMBER,
+    Course_ID NUMBER,
+    Grade CHAR(1),
+    CONSTRAINT FK_EnrollmentStudent FOREIGN KEY (Student_ID) REFERENCES Student(Student_ID),
+    CONSTRAINT FK_EnrollmentCourse FOREIGN KEY (Course_ID) REFERENCES Course(Course_ID)
+);
+
+INSERT INTO Department (Dept_ID, Dept_Name) VALUES (1, 'Computer Science');
+INSERT INTO Department (Dept_ID, Dept_Name) VALUES (2, 'Mathematics');
+
+INSERT INTO Student (Student_ID, Name, Age, Gender, Dept_ID) 
+VALUES (101, 'Alice', 20, 'F', 1);
+INSERT INTO Student (Student_ID, Name, Age, Gender, Dept_ID) 
+VALUES (102, 'Bob', 22, 'M', 2);
+
+INSERT INTO Course (Course_ID, Course_Name, Dept_ID) 
+VALUES (201, 'Data Structures', 1);
+INSERT INTO Course (Course_ID, Course_Name, Dept_ID) 
+VALUES (202, 'Algebra', 2);
+
+INSERT INTO Enrollment (Enrollment_ID, Student_ID, Course_ID, Grade) 
+VALUES (301, 101, 201, 'A');
+INSERT INTO Enrollment (Enrollment_ID, Student_ID, Course_ID, Grade) 
+VALUES (302, 102, 202, 'B');
+
+COMMIT;
+
+SELECT * FROM Department;
+SELECT * FROM Student;
+SELECT * FROM Course;
+SELECT * FROM Enrollment;
