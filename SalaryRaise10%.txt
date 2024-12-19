@@ -31,6 +31,35 @@ CREATE TABLE works_on (
     FOREIGN KEY (pno) REFERENCES project(pno)
 );
 
+-- Insert data into dept table
+INSERT INTO dept (dno, dname, dlocation) VALUES 
+(1, 'Research', 'Building A'),
+(2, 'Development', 'Building B'),
+(3, 'Marketing', 'Building C'),
+(5, 'Operations', 'Building D');
+
+-- Insert data into emp table
+INSERT INTO emp (eno, ename, ebdate, address, gender, salary, deptno) VALUES 
+(101, 'Alice', TO_DATE('1995-06-15', 'YYYY-MM-DD'), '123 Elm St', 'Female', 50000, 1),
+(102, 'Bob', TO_DATE('1988-11-22', 'YYYY-MM-DD'), '456 Oak St', 'Male', 60000, 2),
+(103, 'Charlie', TO_DATE('1990-09-12', 'YYYY-MM-DD'), '789 Pine St', 'Male', 55000, 5),
+(104, 'Diana', TO_DATE('1993-01-18', 'YYYY-MM-DD'), '321 Maple St', 'Female', 70000, 5),
+(105, 'Edward', TO_DATE('1992-03-03', 'YYYY-MM-DD'), '654 Birch St', 'Male', 65000, 3);
+
+-- Insert data into project table
+INSERT INTO project (pno, pname, dnum) VALUES 
+(201, 'Database Migration', 1),
+(202, 'AI Model Deployment', 2),
+(203, 'Marketing Campaign', 3),
+(204, 'Logistics Optimization', 5);
+
+-- Insert data into works_on table
+INSERT INTO works_on (eno, pno, hours) VALUES 
+(101, 201, 40),
+(102, 202, 35),
+(103, 204, 50),
+(104, 204, 45),
+(105, 203, 30);
 UPDATE emp
 SET salary = salary * 1.10
 WHERE deptno = (
